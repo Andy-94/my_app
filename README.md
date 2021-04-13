@@ -5,4 +5,9 @@ Mac create react app:
 
 ## Detail
 流程规划
-1.create the React app from create-react-app
+1. create the React app from create-react-app
+2. Install "Antd" UI-component
+3. install react-router-dom
+4. create two router page (admin and login)
+5. build the login page.
+
