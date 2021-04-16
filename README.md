@@ -13,3 +13,4 @@ Mac create react app:
 6. connect back-end service
 7. create axios response and request
 8. Login page connect admin page
+9. create redux and change Pages to containers

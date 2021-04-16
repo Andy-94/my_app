@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
+import {createSaveUserAction} from '../../redux/actions/login'
+import {Redirect} from 'react-router-dom'
 import { Form, Input, Button, message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './less/login.less'
 import { reqLogin } from '../../ajax';
 
 const {Item} = Form
-
-export default class Login extends Component {
+//ui component
+class Login extends Component {
     onFinish =async(values)=>{
       // console.log('Received values of form: ', values);
       const {username,password} = values
@@ -14,12 +17,15 @@ export default class Login extends Component {
       const {status,data,msg} = result
       if(status===0){
         message.success('success')
+        this.props.save(data) //向redux存入data数据
         this.props.history.replace('/admin')
       }else{
         message.warning(msg)
       }
     }
   render() {
+    console.log(this.props.isLogin)
+    if(this.props.isLogin) return <Redirect to="/admin/"/>
     return ( 
       <div className="loginPage">
         <div className="header">
@@ -73,4 +79,13 @@ export default class Login extends Component {
     );
   }
 }
+//container component
+export default connect(
+  (state)=>({
+    isLogin:state.userInfo.isLogin,
+  }),
+  {
+    save:createSaveUserAction
+  }
+)(Login)
 
