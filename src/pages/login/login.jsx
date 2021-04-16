@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
-import { Form, Input, Button} from 'antd';
+import { Form, Input, Button, message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './less/login.less'
+import { reqLogin } from '../../ajax';
 
 const {Item} = Form
 
 export default class Login extends Component {
-    onFinish =(values)=>{
-    console.log('Received values of form: ', values);
+    onFinish =async(values)=>{
+    // console.log('Received values of form: ', values);
+    const {username,password} = values
+    let result = await reqLogin(username,password)
+    const {status,data,msg} = result
+    if(status===0){
+      message.success('success')
+      this.props.history.replace('/admin')
+    }else{
+      message.warning(msg)
+    }
   }
   render() {
-    return (
+    return ( 
       <div className="loginPage">
         <div className="header">
           <img src="https://z3.ax1x.com/2021/04/05/cMnci8.png" alt="logo"/>
