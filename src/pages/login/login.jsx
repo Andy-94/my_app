@@ -8,17 +8,17 @@ const {Item} = Form
 
 export default class Login extends Component {
     onFinish =async(values)=>{
-    // console.log('Received values of form: ', values);
-    const {username,password} = values
-    let result = await reqLogin(username,password)
-    const {status,data,msg} = result
-    if(status===0){
-      message.success('success')
-      this.props.history.replace('/admin')
-    }else{
-      message.warning(msg)
+      // console.log('Received values of form: ', values);
+      const {username,password} = values
+      let result = await reqLogin(username,password)
+      const {status,data,msg} = result
+      if(status===0){
+        message.success('success')
+        this.props.history.replace('/admin')
+      }else{
+        message.warning(msg)
+      }
     }
-  }
   render() {
     return ( 
       <div className="loginPage">
