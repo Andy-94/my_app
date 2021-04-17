@@ -14,3 +14,7 @@ Mac create react app:
 7. create axios response and request
 8. Login page connect admin page
 9. create redux and change Pages to containers
+10. antd Layout
+11. use screenfull on the header
+12. use dayjs
+13. 

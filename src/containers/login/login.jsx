@@ -24,7 +24,7 @@ class Login extends Component {
       }
     }
   render() {
-    console.log(this.props.isLogin)
+    // console.log(this.props.isLogin)
     if(this.props.isLogin) return <Redirect to="/admin/"/>
     return ( 
       <div className="loginPage">
