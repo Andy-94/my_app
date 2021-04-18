@@ -56,7 +56,7 @@ class header extends Component {
         </div>
         <div className="header-bottom">
           <div className="bottom-left">
-            <h1>First Page</h1>
+            <h1>Home Page</h1>
           </div>
           <div className="bottom-right">
             <h3>{this.state.date}</h3>

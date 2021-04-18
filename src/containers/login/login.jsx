@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import {createSaveUserAction} from '../../redux/actions/login'
 import {Redirect} from 'react-router-dom'
 import { Form, Input, Button, message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './less/login.less'
+import {createSaveUserAction} from '../../redux/actions/login'
 import { reqLogin } from '../../ajax';
 
 const {Item} = Form
