@@ -56,7 +56,7 @@ class header extends Component {
         </div>
         <div className="header-bottom">
           <div className="bottom-left">
-            <h1>Home Page</h1>
+            <h1>{this.props.title} Page</h1>
           </div>
           <div className="bottom-right">
             <h3>{this.state.date}</h3>
@@ -67,7 +67,10 @@ class header extends Component {
   }
 }
 export default connect(
-  (state)=>({name:state.userInfo.user.username}),
+  (state)=>({
+    name:state.userInfo.user.username,
+    title:state.title
+  }),
   {
     logout:createDeleteAction
   }

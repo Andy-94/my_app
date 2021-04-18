@@ -1,16 +1,18 @@
 import React,{Component} from 'react'
 import { Menu} from 'antd';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {createSaveTitlerAction} from '../../redux/actions/title'
 import './css/nav.less'
 import meuns from '../../config/menu_config'
 
 const { SubMenu, Item } = Menu;
-export default class Nav extends Component{
+class Nav extends Component{
   createMenu = (menuArr)=>{
     return menuArr.map((menuObj)=>{
       if(!menuObj.children){
         return (
-          <Item key={menuObj.key} icon={<menuObj.icon/>}>
+          <Item key={menuObj.key} icon={<menuObj.icon/>} onClick={()=>{this.props.titler(menuObj.title)}}>
               <Link to={menuObj.path}>{menuObj.title}</Link>
           </Item>
         )
@@ -23,9 +25,10 @@ export default class Nav extends Component{
       }
     })
   }
-  
-
   render(){
+    const selectedKeys = this.props.location.pathname.split("/")
+    const selectedOpenkey = selectedKeys.reverse()[0]
+
     return (
       <div className="Nav">
         <div className="Nav-header">
@@ -34,8 +37,8 @@ export default class Nav extends Component{
         </div>
         <div className="Nav_container">
           <Menu
-            defaultSelectedKeys={['home']}
-            defaultOpenKeys={['Chart_info']}
+            selectedKeys={[selectedOpenkey]}
+            defaultOpenKeys={selectedKeys}
             mode="inline"
             theme="dark"
           >
@@ -66,3 +69,9 @@ export default class Nav extends Component{
     )
   }
 }
+export default connect(
+  ()=>({}),
+  {
+    titler:createSaveTitlerAction
+  }
+)(withRouter(Nav))
