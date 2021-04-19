@@ -5,6 +5,7 @@ import {FullscreenOutlined, FullscreenExitOutlined,ExclamationCircleOutlined} fr
 import screenfull from 'screenfull'
 import dayjs from 'dayjs'
 import {createDeleteAction} from '../../redux/actions/login'
+import {createSaveTitlerAction} from '../../redux/actions/title'
 import './css/header.less'
 
 const { confirm } = Modal;
@@ -37,6 +38,7 @@ class header extends Component {
       content: 'Log out',
       onOk:()=> {
         this.props.logout()
+        this.props.deleterTitle('')
       },
       onCancel() {
       },
@@ -72,6 +74,7 @@ export default connect(
     title:state.title
   }),
   {
-    logout:createDeleteAction
+    logout:createDeleteAction,
+    deleterTitle:createSaveTitlerAction
   }
 )(header)

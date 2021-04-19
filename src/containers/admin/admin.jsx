@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Layout,} from 'antd';
 import {createDeleteAction} from '../../redux/actions/login';
 import './css/admin.less';
-import Home from '../home/home'
+import Home from '../../components/home/home'
 import Category from '../category/category'
 import Manager from '../manager/manager'
 import User from '../user/user'

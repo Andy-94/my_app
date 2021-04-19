@@ -25,6 +25,27 @@ class Nav extends Component{
       }
     })
   }
+  getTitlerByPath =()=>{
+    let key = this.props.location.pathname.split('/').reverse()[0]
+    if(!key) key = 'home'
+    let title =''
+    meuns.forEach((meunObj)=>{
+      if(meunObj.children instanceof Array){
+        let result = meunObj.children.find((childrenObj)=>{
+          return childrenObj.key === key
+        })
+        if(result) return title = result.title
+      }else{
+        if(meunObj.key === key) return title = meunObj.title
+      }
+    })
+    this.props.titler(title)
+  }
+  componentDidMount(){
+    if(!this.props.titler.name){
+      this.getTitlerByPath()
+    }
+  }
   render(){
     const selectedKeys = this.props.location.pathname.split("/")
     const selectedOpenkey = selectedKeys.reverse()[0]
