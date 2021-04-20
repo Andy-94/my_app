@@ -6,3 +6,6 @@ export const reqLogin =(username,password) => myAxios.post('/login',{username,pa
 export const reqCategoryList =() => myAxios.get('/manage/category/list')
 //接受category添加
 export const reqCategoryAdd =(categoryName) => myAxios.post('/manage/category/add',{categoryName})
+
+//修改category
+export const reqCategoryChange =(categoryId, categoryName) => myAxios.post('/manage/category/update',{categoryId, categoryName})
