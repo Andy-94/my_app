@@ -9,3 +9,8 @@ export const reqCategoryAdd =(categoryName) => myAxios.post('/manage/category/ad
 
 //修改category
 export const reqCategoryChange =(categoryId, categoryName) => myAxios.post('/manage/category/update',{categoryId, categoryName})
+
+//请求商品列表  
+export const reqCategoryListData =(pageNum,pageSize)=> myAxios.get('/manage/product/list',{params:{pageNum,pageSize}})
+//更新商品updatestatus
+export const reqCategoryUpdateStatus =(productId,status)=> myAxios.post('/manage/product/updateStatus',{productId,status})

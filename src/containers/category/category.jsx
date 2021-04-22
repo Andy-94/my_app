@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {reqCategoryAdd,reqCategoryChange} from '../../ajax'
 import {createCategoryAsyncAction} from '../../redux/actions/category'
 import {PlusCircleOutlined} from '@ant-design/icons'
+import {Page_size} from '../../config'
 import { Card, Button, Table, Modal, Form, Input, message  } from 'antd';
 const {Item} = Form
 class Category extends Component {
@@ -75,7 +76,7 @@ class Category extends Component {
             dataSource={this.props.category} 
             columns={columns} 
             pagination ={{
-              pageSize:'4',
+              pageSize: Page_size,
               showQuickJumper:true,
             }}
             rowKey = '_id'
