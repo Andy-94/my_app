@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Card, Button, Input, Select, Table, message} from 'antd'
 import {SearchOutlined , PlusCircleOutlined} from '@ant-design/icons'
-import {reqCategoryListData,reqCategoryUpdateStatus} from '../../ajax'
+import {reqCategoryListData,reqCategoryUpdateStatus,reqCategorySearch} from '../../ajax'
 import {Page_size} from '../../config'
 
 const { Option } = Select;
@@ -9,8 +9,13 @@ export default class Manager extends Component {
   state ={
     prdocutList:[],
     total:[],
-    isloading: true
+    isloading: true,
+    searchType:'productName',
+    keyword:'',
+    isSearch:false,
+    current:1
   }
+
   //更新页面，updatastate
   getChangeStatus = async({_id,status})=>{
     if(status === 1) status = 2
@@ -39,8 +44,15 @@ export default class Manager extends Component {
 
   }
   getCategoryListData = async(number)=>{
-    this.setState({isloading:true})
-    let result = await reqCategoryListData(number,Page_size)
+    this.setState({isloading:true,current:number})
+    let result
+
+    if(this.isSearch){
+      const {searchType,keyword} = this.state
+      result = await reqCategorySearch(searchType,keyword,number,Page_size)
+    }else{
+      result = await reqCategoryListData(number,Page_size)
+    }
     const {status,data,msg} = result
     if(status === 0){
       const {total,list} = data
@@ -107,12 +119,12 @@ export default class Manager extends Component {
       <Card 
         title={
           <div>
-             <Select defaultValue="CategoryName">
-              <Option value="CategoryName">按名称搜索</Option>
-              <Option value="CategoryDescribe">按描述搜索</Option>
+             <Select onChange={(value)=>{this.setState({searchType:value})}} defaultValue="CategoryName">
+              <Option value="productName">按名称搜索</Option>
+              <Option value="productDesc">按描述搜索</Option>
             </Select>
-            <Input style={{width:'30%',margin:'0 10px'}} placeholder="Please input key words"/>
-            <Button type="primary" icon={<SearchOutlined />}>搜索</Button>
+            <Input onChange={(event)=>{this.setState({keyword:event.target.value})}} style={{width:'30%',margin:'0 10px'}} placeholder="Please input key words"/>
+            <Button onClick={()=>{this.isSearch=true;this.getCategoryListData(1)}} type="primary" icon={<SearchOutlined />}>搜索</Button>
           </div>
         }
         extra={<Button type="primary" icon={<PlusCircleOutlined />}>Add Button</Button>}>
@@ -125,7 +137,8 @@ export default class Manager extends Component {
       pagination={{
         pageSize:Page_size,
         total:this.state.total,
-        onChange:(number)=>{this.getCategoryListData(number)}
+        onChange:(number)=>{this.getCategoryListData(number)},
+        current:this.state.current
       }
       }
       />

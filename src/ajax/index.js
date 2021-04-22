@@ -14,3 +14,5 @@ export const reqCategoryChange =(categoryId, categoryName) => myAxios.post('/man
 export const reqCategoryListData =(pageNum,pageSize)=> myAxios.get('/manage/product/list',{params:{pageNum,pageSize}})
 //更新商品updatestatus
 export const reqCategoryUpdateStatus =(productId,status)=> myAxios.post('/manage/product/updateStatus',{productId,status})
+//搜索商品
+export const reqCategorySearch = (searchType,keyword,pageNum,pageSize )=> myAxios.get('/manage/product/search',{params:{[searchType]:keyword,pageNum,pageSize}})
