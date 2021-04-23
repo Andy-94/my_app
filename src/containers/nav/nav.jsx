@@ -26,8 +26,11 @@ class Nav extends Component{
     })
   }
   getTitlerByPath =()=>{
-    let key = this.props.location.pathname.split('/').reverse()[0]
+    let arr =this.props.location.pathname.split('/')
+    let key = arr.reverse()[0]
     if(!key) key = 'home'
+    //路由nav同步
+    if(arr.indexOf('product') !== -1) key='product'
     let title =''
     meuns.forEach((meunObj)=>{
       if(meunObj.children instanceof Array){
@@ -48,7 +51,9 @@ class Nav extends Component{
   }
   render(){
     const selectedKeys = this.props.location.pathname.split("/")
-    const selectedOpenkey = selectedKeys.reverse()[0]
+    let selectedOpenkey = selectedKeys.reverse()[0]
+    //路由跳转时，nav会高亮
+    if(selectedKeys.indexOf('product') !== -1) selectedOpenkey ='product'
 
     return (
       <div className="Nav">

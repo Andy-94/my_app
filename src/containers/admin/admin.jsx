@@ -7,6 +7,8 @@ import './css/admin.less';
 import Home from '../../components/home/home'
 import Category from '../category/category'
 import Manager from '../manager/manager'
+import AddUpdate from '../add_update/addUpdate'
+import Detail from '../detail/detail'
 import User from '../user/user'
 import Role from '../role/role'
 import Line from '../Line/line'
@@ -30,7 +32,10 @@ class Admin extends Component {
           <Switch>
             <Route path="/admin/home" component={Home} />
             <Route path="/admin/prod_about/category" component={Category} />
-            <Route path="/admin/prod_about/product" component={Manager} />
+            <Route path="/admin/prod_about/product" exact component={Manager} />
+            <Route path="/admin/prod_about/product/addupdate" component={AddUpdate}/>
+            <Route path="/admin/prod_about/product/detail/:id" component={Detail}/>
+            <Route path="/admin/prod_about/product/addupdate/:id" component={AddUpdate}/>
             <Route path="/admin/user" component={User} />
             <Route path="/admin/role" component={Role} />
             <Route path="/admin/charts/bar" component={Bar} />

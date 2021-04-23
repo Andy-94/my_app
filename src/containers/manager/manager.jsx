@@ -46,7 +46,6 @@ export default class Manager extends Component {
   getCategoryListData = async(number)=>{
     this.setState({isloading:true,current:number})
     let result
-
     if(this.isSearch){
       const {searchType,keyword} = this.state
       result = await reqCategorySearch(searchType,keyword,number,Page_size)
@@ -104,13 +103,13 @@ export default class Manager extends Component {
       },
       {
         title: 'Operation',
-        //dataIndex: 'address',
+        dataIndex: '_id',
         key: 'operation',
         align:'center',
-        render: ()=>(
+        render: (id)=>(
           <div>
-            <Button type="link">Detail</Button><br/>
-            <Button type="link">Modify</Button>
+            <Button type="link" onClick={()=>{this.props.history.push(`/admin/prod_about/product/detail/${id}`)}}>Detail</Button><br/>
+            <Button type="link" onClick={()=>{this.props.history.push(`/admin/prod_about/product/addupdate/:${id}`)}}>Modify</Button>
           </div>
         )
       },
@@ -127,7 +126,7 @@ export default class Manager extends Component {
             <Button onClick={()=>{this.isSearch=true;this.getCategoryListData(1)}} type="primary" icon={<SearchOutlined />}>搜索</Button>
           </div>
         }
-        extra={<Button type="primary" icon={<PlusCircleOutlined />}>Add Button</Button>}>
+        extra={<Button onClick={()=>{this.props.history.push('/admin/prod_about/product/addupdate')}} type="primary" icon={<PlusCircleOutlined />}>Add Button</Button>}>
      <Table 
       bordered
       loading = {this.state.isloading}
