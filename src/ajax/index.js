@@ -26,3 +26,5 @@ export const reqDetailInfo = (ProductObj) => myAxios.post('/manage/product/add',
 
 //更新商品
 export const reqUpdataInfo =(ProductObj) => myAxios.post('/manage/product/update',ProductObj)
+//获取用户list
+export const reqRoleList =()=> myAxios.get('/manage/role/list',)
