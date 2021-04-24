@@ -1,24 +1,68 @@
 import React, { Component } from 'react';
-import {Card,Button,Form,Input,Select} from 'antd'
+import {Card,Button,Form,Input,Select, message} from 'antd'
 import {ArrowLeftOutlined} from '@ant-design/icons'
 import {createCategoryAsyncAction} from '../../redux/actions/category'
 import { connect } from 'react-redux';
+import {reqDetailInfo ,  reqCategoryDetail, reqUpdataInfo} from '../../ajax'
 import Picture from './picture'
+import RichEditor from './rich_editor'
 const {Item} = Form
 const {Option} = Select
 class AddUpdate extends Component {
-
-  onFinish=(value)=>{
-    console.log(value)
+  myRefPicture = React.createRef()
+  myRefEditor = React.createRef()
+  myRefForm = React.createRef()
+  state={
+    isUpdate: false,
+    _id:''
+  }
+  onFinish = async(value)=>{
+    value.imgs = this.myRefPicture.current.getImgNames()
+    value.detail = this.myRefEditor.current.onGetEdiotr()
+    // console.log(value)
+    let result
+    if(this.state.isUpdate){
+      value._id=this.state._id
+      result = await reqUpdataInfo(value)
+    }else{
+      result = await reqDetailInfo(value)
+    }
+    const {status, msg} = result
+    if(status===0){
+      message.success(this.state.isUpdate ? 'product update success':'success')
+      this.props.history.replace('/admin/prod_about/product')
+    }else{
+      message.error(msg)
+    }
   }
   createOption =()=>{
     return this.props.categoryList.map((obj)=>{
       return <Option key={obj._id} value={obj._id}>{obj.name}</Option>
     })
   }
+  getIdData = async(id)=>{
+    let result = await reqCategoryDetail(id)
+    const {status,data,msg} = result
+    if(status ===0){
+      //andt直接引入data的数据，只要原本form的数据和数据库的数据一致
+      this.myRefForm.current.setFieldsValue(data)
+      //图片回显
+      this.myRefPicture.current.setImgs(data.imgs)
+      //文字
+      this.myRefEditor.current.setText(data.detail)
+    }else{
+      message.error(msg)
+    }
+  }
   componentDidMount(){
     if(!this.props.categoryList.length){
       this.props.saveCategoryList()
+    }
+    const id = this.props.location.pathname.split('/').reverse()[0]
+    if(id !== 'addupdate'){
+      this.setState({isUpdate: true,_id:id})
+      //接送数据
+      this.getIdData(id)
     }
   }
 
@@ -27,10 +71,10 @@ class AddUpdate extends Component {
       <Card title={
         <div>
           <Button onClick={()=>{this.props.history.goBack()}} type="link" icon={<ArrowLeftOutlined />} style={{marginRight:'10px'}}>Back</Button>
-          <span>Product AddList</span>
+          <span>{this.state.isUpdate ? 'Product Modify':'Product AddList'}</span>
           </div>
       }>
-        <Form onFinish={this.onFinish}>
+        <Form ref={this.myRefForm} onFinish={this.onFinish}>
           <Item 
             name="name" 
             rules={[{required:true,message:'this cannot empty'}]}
@@ -64,16 +108,18 @@ class AddUpdate extends Component {
           label="Product Category"
           wrapperCol ={{span:8}}
           >
-            <Select defaultValue="">
+            <Select>
               <Option value="Please select the category">Please select the category</Option>
               {this.createOption()}
             </Select>
           </Item>
           <Item label="Product Picture">
-            <Picture/>
+            <Picture ref={this.myRefPicture}/>
           </Item>
-          <Item label="Product Detail">
+          <Item label="Product Detail" wrapperCol ={{span:20}}>
+            <RichEditor ref={this.myRefEditor} />
           </Item>
+
           <Item >
             <Button htmlType="submit"  type="primary">Submit</Button>
           </Item>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch} from 'react-router-dom';
 import { Layout,} from 'antd';
 import {createDeleteAction} from '../../redux/actions/login';
 import './css/admin.less';
@@ -30,18 +30,18 @@ class Admin extends Component {
           <Header/>
           <Content className="admin-content">
           <Switch>
-            <Route path="/admin/home" component={Home} />
-            <Route path="/admin/prod_about/category" component={Category} />
-            <Route path="/admin/prod_about/product" exact component={Manager} />
-            <Route path="/admin/prod_about/product/addupdate" component={AddUpdate}/>
-            <Route path="/admin/prod_about/product/detail/:id" component={Detail}/>
-            <Route path="/admin/prod_about/product/addupdate/:id" component={AddUpdate}/>
-            <Route path="/admin/user" component={User} />
-            <Route path="/admin/role" component={Role} />
-            <Route path="/admin/charts/bar" component={Bar} />
-            <Route path="/admin/charts/line" component={Line} />
-            <Route path="/admin/charts/pie" component={Pie} />
-            <Redirect to="/admin/home"/>
+            <Route path={"/admin/home"} component={Home} />
+            <Route path={"/admin/prod_about/category"} component={Category} />
+            <Route path={"/admin/prod_about/product"} component={Manager} exact/>
+            <Route path={"/admin/prod_about/product/detail/:id"} component={Detail}/>
+            <Route path={"/admin/prod_about/product/addupdate"} component={AddUpdate}/>
+            <Route path={"/admin/prod_about/product/addupdate/:id"} component={AddUpdate}/>
+            <Route path={"/admin/user"} component={User} />
+            <Route path={"/admin/role"} component={Role} />
+            <Route path={"/admin/charts/bar"} component={Bar} />
+            <Route path={"/admin/charts/line"} component={Line} />
+            <Route path={"/admin/charts/pie"} component={Pie} />
+            <Redirect to={"/admin/home"}/>
           </Switch>
           </Content>
           <Footer className="admin-footer">

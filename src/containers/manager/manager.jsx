@@ -94,24 +94,28 @@ export default class Manager extends Component {
         // dataIndex: 'status',
         key: 'status',
         align:'center',
-        render:(item)=>(
-          <div>
-            <Button onClick={()=>{this.getChangeStatus(item)}} type={item.status === 1 ? "danger" : "primary"}>{item.status === 1? '下架':'上架'}</Button><br/>
-            <span>{item.status === 1 ? "在售" : "售完"}</span>
-          </div>
-        )
+        render:(item)=>{
+          return (
+            <div>
+              <Button onClick={()=>{this.getChangeStatus(item)}} type={item.status === 1 ? "danger" : "primary"}>{item.status === 1? '下架':'上架'}</Button><br/>
+              <span>{item.status === 1 ? "在售" : "售完"}</span>
+            </div>
+          )
+        }
       },
       {
         title: 'Operation',
-        dataIndex: '_id',
+        // dataIndex: '_id',
         key: 'operation',
         align:'center',
-        render: (id)=>(
-          <div>
-            <Button type="link" onClick={()=>{this.props.history.push(`/admin/prod_about/product/detail/${id}`)}}>Detail</Button><br/>
-            <Button type="link" onClick={()=>{this.props.history.push(`/admin/prod_about/product/addupdate/:${id}`)}}>Modify</Button>
-          </div>
-        )
+        render: (item)=>{
+          return (
+            <div>
+              <Button type="link" onClick={()=>{this.props.history.push(`/admin/prod_about/product/detail/${item._id}`)}}>Detail</Button><br/>
+              <Button type="link" onClick={()=>{this.props.history.push(`/admin/prod_about/product/addupdate/${item._id}`)}}>Modify</Button>
+            </div>
+          )
+        }
       },
     ];
     return (

@@ -17,5 +17,12 @@ export const reqCategoryUpdateStatus =(productId,status)=> myAxios.post('/manage
 //搜索商品
 export const reqCategorySearch = (searchType,keyword,pageNum,pageSize )=> myAxios.get('/manage/product/search',{params:{[searchType]:keyword,pageNum,pageSize}})
 
-//商品detail
+//商品ID接收detail
 export const reqCategoryDetail = (productId)=> myAxios.get('/manage/product/info',{params:{productId}})
+//图片上传后删除
+export const reqUpdataRemove = (name)=> myAxios.post('/manage/img/delete',{name})
+//上传信息
+export const reqDetailInfo = (ProductObj) => myAxios.post('/manage/product/add',ProductObj)
+
+//更新商品
+export const reqUpdataInfo =(ProductObj) => myAxios.post('/manage/product/update',ProductObj)

@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { Upload, Modal, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import {reqUpdataRemove} from '../../ajax'
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -15,15 +16,22 @@ export default class Picture extends Component{
     previewVisible: false,
     previewImage: '',
     previewTitle: '',
-    fileList: [
-      {
-        uid: '-1',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-    ],
+    fileList: [],
   };
+  setImgs =(imgsArr)=>{
+    let result =[]
+    imgsArr.forEach((imgName,index)=>{
+      result.push({uid:-index,name:imgName,url:`/upload/${imgName}`})
+    })
+    this.setState({fileList:result})
+  }
+  getImgNames =()=>{
+    let result =[]
+    this.state.fileList.forEach((obj)=>{
+      result.push(obj.name)
+    })
+    return result
+  }
   //预览关闭回调
   handleCancel = () => this.setState({ previewVisible: false });
   //浏览回调
@@ -39,7 +47,18 @@ export default class Picture extends Component{
     });
   };
   //需要改的，图片上传状态改变
-  handleChange = ({ file, fileList }) => {
+  handleChange = async({ file, fileList }) => {
+    if(file.status === 'removed'){
+      
+      let result = await reqUpdataRemove(file.name)
+      console.log(result)
+      const {status,msg} = result
+      if(status ===0){
+        message.error('remove success')
+      }else{
+        message.error(msg)
+      }
+    }
     if(file.status === 'done'){
       const {status,data,msg} = file.response
       const {name,url} = data
@@ -53,7 +72,7 @@ export default class Picture extends Component{
       }
     }
     this.setState({ fileList });
-    console.log(fileList)}
+    }
 
   render(){
     const { previewVisible, previewImage, fileList, previewTitle } = this.state;

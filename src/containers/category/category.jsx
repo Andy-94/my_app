@@ -21,6 +21,7 @@ class Category extends Component {
       }
     }
     this.setState({visible: true,});
+
   };
   handleOk =  async() => {
     const {categoryName} = this.myRef.current.getFieldsValue()
@@ -50,6 +51,7 @@ class Category extends Component {
   };
   componentDidMount(){
     this.props.saveCategory()
+    console.log(this.props)
   }
     
   render() {
