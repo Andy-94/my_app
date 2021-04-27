@@ -30,11 +30,11 @@ class Login extends Component {
       <div className="loginPage">
         <div className="header">
           <img src="https://z3.ax1x.com/2021/04/05/cMnci8.png" alt="logo"/>
-          <h2>商品管理系统</h2>
+          <h2>Product Manager System</h2>
         </div>
         <div className="loginBlock">
           <div className="loginBlockRound">
-            <h2>用户登陆</h2>
+            <h2>Customer Login</h2>
             <Form
               name="normal_login"
               className="login-form"
@@ -45,8 +45,20 @@ class Login extends Component {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your Username!',
+                    message: 'Please input your username!',
                   },
+                  {
+                    min:5,
+                    message:'please input more than five words',
+                  },
+                  {
+                    max:12,
+                    message:'please input less than twelve words',
+                  },
+                  {
+                    pattern: '[A-Za-z0-9_\-\u4e00-\u9fa5]+',
+                    message:'please input correct username',
+                  }
                 ]}
               >
                 <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
@@ -57,6 +69,14 @@ class Login extends Component {
                   {
                     required: true,
                     message: 'Please input your Password!',
+                  },
+                  {
+                    min:4,
+                    message:'please input more than four words',
+                  },
+                  {
+                    whitespace: true,
+                    message: 'Password is not white space!',
                   },
                 ]}
               >
@@ -69,7 +89,7 @@ class Login extends Component {
 
               <Item>
                 <Button type="primary" htmlType="submit" className="login-form-button">
-                  登陆
+                  Log On
                 </Button>
               </Item>
             </Form>

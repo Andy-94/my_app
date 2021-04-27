@@ -97,8 +97,8 @@ export default class Manager extends Component {
         render:(item)=>{
           return (
             <div>
-              <Button onClick={()=>{this.getChangeStatus(item)}} type={item.status === 1 ? "danger" : "primary"}>{item.status === 1? '下架':'上架'}</Button><br/>
-              <span>{item.status === 1 ? "在售" : "售完"}</span>
+              <Button onClick={()=>{this.getChangeStatus(item)}} type={item.status === 1 ? "danger" : "primary"}>{item.status === 1? 'sale out':'sale'}</Button><br/>
+              <span>{item.status === 1 ? "In stock" : "Out stock"}</span>
             </div>
           )
         }
@@ -123,11 +123,11 @@ export default class Manager extends Component {
         title={
           <div>
              <Select onChange={(value)=>{this.setState({searchType:value})}} defaultValue="CategoryName">
-              <Option value="productName">按名称搜索</Option>
-              <Option value="productDesc">按描述搜索</Option>
+              <Option value="productName">Search By Name</Option>
+              <Option value="productDesc">Search By Description</Option>
             </Select>
             <Input onChange={(event)=>{this.setState({keyword:event.target.value})}} style={{width:'30%',margin:'0 10px'}} placeholder="Please input key words"/>
-            <Button onClick={()=>{this.isSearch=true;this.getCategoryListData(1)}} type="primary" icon={<SearchOutlined />}>搜索</Button>
+            <Button onClick={()=>{this.isSearch=true;this.getCategoryListData(1)}} type="primary" icon={<SearchOutlined />}>Search</Button>
           </div>
         }
         extra={<Button onClick={()=>{this.props.history.push('/admin/prod_about/product/addupdate')}} type="primary" icon={<PlusCircleOutlined />}>Add Button</Button>}>

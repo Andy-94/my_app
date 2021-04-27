@@ -112,8 +112,8 @@ export default class Role extends Component {
         render:(item)=>{
           return (
               <div>
-                  <Button onClick={()=>{this.showModal(item)}} type="link">修改</Button>
-                  <Button type="link">设置权限</Button>
+                  <Button onClick={()=>{this.showModal(item)}} type="link">Modify</Button>
+                  <Button type="link" danger>Delete</Button>
                 </div>
           )
         }
@@ -121,7 +121,7 @@ export default class Role extends Component {
     ];
     return (
       <div>
-       <Card title={<Button onClick={this.showModal} icon={<PlusOutlined />} type="primary">Create User</Button>} >
+       <Card title={<Button onClick={this.showModal} icon={<PlusOutlined />} type="primary">Create Role</Button>} >
         <Table 
         rowKey="_id"
         bordered
@@ -151,7 +151,24 @@ export default class Role extends Component {
               labelAlign="right"
               labelCol ={{span:7}}
               wrapperCol = {{span:16}}
-              rules={[{ required: true, message: 'Please input your username!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your username!',
+                },
+                {
+                  min:5,
+                  message:'please input more than five words',
+                },
+                {
+                  max:12,
+                  message:'please input less than twelve words',
+                },
+                {
+                  pattern: '[A-Za-z0-9_\-\u4e00-\u9fa5]+',
+                  message:'please input correct username',
+                }
+              ]}
             >
               <Input/>
             </Item>
@@ -161,7 +178,20 @@ export default class Role extends Component {
               labelAlign="right"
               labelCol ={{span:7}}
               wrapperCol = {{span:16}}
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+                {
+                  min:4,
+                  message:'please input more than four words',
+                },
+                {
+                  whitespace: true,
+                  message: 'Password is not white space!',
+                },
+              ]}
             >
               <Input />
             </Item>
@@ -194,7 +224,7 @@ export default class Role extends Component {
               rules={[{ required: true, message: 'Please select your Role!' }]}
             >
               <Select >
-                <Option value=" ">请选择一个角色</Option>
+                <Option value=" ">Please choose one role</Option>
                 {
                   this.state.roles.map((obj)=>{
                     return <Option key={obj._id} value={obj._id}>{obj.name}</Option>

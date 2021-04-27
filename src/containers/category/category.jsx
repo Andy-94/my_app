@@ -66,7 +66,7 @@ class Category extends Component {
         key: 'OperateItem',
         align: 'center',
         width: '15%',
-        render: (item) => <Button onClick={()=>{this.showModal(item)}} type="link">修改分类</Button>
+        render: (item) => <Button onClick={()=>{this.showModal(item)}} type="link">Modify Category</Button>
       },
     ];
     return (

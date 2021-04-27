@@ -72,7 +72,7 @@ class Nav extends Component{
       <div className="Nav">
         <div className="Nav-header">
           <img src="https://z3.ax1x.com/2021/04/05/cMnci8.png" alt="logo"/>
-          <span>商品管理系统</span>
+          <span>Manager System</span>
         </div>
         <div className="Nav_container">
           <Menu

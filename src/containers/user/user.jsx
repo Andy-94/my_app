@@ -111,12 +111,12 @@ export default class User extends Component {
         key: 'opera',
         width:'10%',
         align:'center',
-        render:(id)=><Button type="link" onClick={()=>{this.showModalAuth(id)}}>设置权限</Button>
+        render:(id)=><Button type="link" onClick={()=>{this.showModalAuth(id)}}>setting permission</Button>
       },
     ];
     return (
       <div>
-        <Card title={<Button onClick={this.showModalAdd} type="primary" icon={<PlusCircleOutlined />}>新增角色</Button>} >
+        <Card title={<Button onClick={this.showModalAdd} type="primary" icon={<PlusCircleOutlined />}>Create User</Button>} >
           <Table 
           dataSource={this.state.dataSource} 
           columns={columns} 
