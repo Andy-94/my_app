@@ -8,20 +8,33 @@ import meuns from '../../config/menu_config'
 
 const { SubMenu, Item } = Menu;
 class Nav extends Component{
+
+  //验证用户权限
+  RoleAuth =(menuObj)=>{
+    const {rolePin} = this.props
+    if(this.props.userName ==='admin') return true
+    if(!menuObj.children){
+      return rolePin.find((item)=> item === menuObj.key)
+    }else{
+      return menuObj.children.some((item2)=>rolePin.indexOf(item2.key) !== -1 )
+    }
+  }
   createMenu = (menuArr)=>{
     return menuArr.map((menuObj)=>{
-      if(!menuObj.children){
-        return (
-          <Item key={menuObj.key} icon={<menuObj.icon/>} onClick={()=>{this.props.titler(menuObj.title)}}>
-              <Link to={menuObj.path}>{menuObj.title}</Link>
-          </Item>
-        )
-      }else{
-        return(
-          <SubMenu key={menuObj.key} icon={<menuObj.icon/>} title={menuObj.title}>
-            {this.createMenu(menuObj.children)}
-         </SubMenu>
-        )
+      if(this.RoleAuth(menuObj)){
+        if(!menuObj.children){
+          return (
+            <Item key={menuObj.key} icon={<menuObj.icon/>} onClick={()=>{this.props.titler(menuObj.title)}}>
+                <Link to={menuObj.path}>{menuObj.title}</Link>
+            </Item>
+          )
+        }else{
+          return(
+            <SubMenu key={menuObj.key} icon={<menuObj.icon/>} title={menuObj.title}>
+              {this.createMenu(menuObj.children)}
+           </SubMenu>
+          )
+        }
       }
     })
   }
@@ -96,7 +109,10 @@ class Nav extends Component{
   }
 }
 export default connect(
-  ()=>({}),
+  (state)=>({
+    rolePin:state.userInfo.user.role.menus,
+    userName: state.userInfo.user.username
+  }),
   {
     titler:createSaveTitlerAction
   }

@@ -21,14 +21,14 @@ class Category extends Component {
       }
     }
     this.setState({visible: true,});
-
   };
+  
   handleOk =  async() => {
     const {categoryName} = this.myRef.current.getFieldsValue()
     if(!categoryName) {message.warning('input cannot empty');return}
     let result
     if(this.isUpdate){
-      result = await reqCategoryChange(this._id,categoryName)
+      result = await reqCategoryChange(this._id , categoryName)
     }else{
       result = await reqCategoryAdd(categoryName)
     }
@@ -51,7 +51,6 @@ class Category extends Component {
   };
   componentDidMount(){
     this.props.saveCategory()
-    console.log(this.props)
   }
     
   render() {

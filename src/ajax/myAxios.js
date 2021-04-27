@@ -7,7 +7,8 @@ import {createSaveTitlerAction} from '../redux/actions/title'
 import {message} from 'antd'
 import 'nprogress/nprogress.css'
 //初始化地址
-axios.defaults.baseURL='http://localhost:3000'
+// axios.defaults.baseURL='http://localhost:3000'
+axios.defaults.baseURL=''
 //请求拦截器
 axios.interceptors.request.use((config)=>{
   Nprogress.start()

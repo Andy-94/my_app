@@ -18,3 +18,8 @@ Mac create react app:
 11. use screenfull on the header
 12. use dayjs
 13. use webmodules/jsonp
+14. 
+15. 
+16. 
+17. 
+18. yarn build(change the hashrouter and change myAxios address)

@@ -1,5 +1,6 @@
 //项目发请求的方法
 import myAxios from './myAxios'
+
 //登陆请求
 export const reqLogin =(username,password) => myAxios.post('/login',{username,password})
 //接受category数据
@@ -28,3 +29,13 @@ export const reqDetailInfo = (ProductObj) => myAxios.post('/manage/product/add',
 export const reqUpdataInfo =(ProductObj) => myAxios.post('/manage/product/update',ProductObj)
 //获取用户list
 export const reqRoleList =()=> myAxios.get('/manage/role/list',)
+//获取用户名字 roleName是个数组必须解构付值
+export const reqRoleName =({roleName})=>myAxios.post('/manage/role/add',{roleName})
+//更新角色权限
+export const reqAuthRole =(_id,auth_name,menus,auth_time) => myAxios.post('/manage/role/update',{_id,auth_name,menus,auth_time})
+//请求角色信息
+export const reqUserList =()=>myAxios.get('/manage/user/list')
+//添加用户
+export const reqAddUser =(UserObj)=> myAxios.post('/manage/user/add',UserObj)
+//更新用户
+export const reqUpdateUserList =(UserObj)=>myAxios.post('/manage/user/update',UserObj)
