@@ -39,3 +39,5 @@ export const reqUserList =()=>myAxios.get('/manage/user/list')
 export const reqAddUser =(UserObj)=> myAxios.post('/manage/user/add',UserObj)
 //更新用户
 export const reqUpdateUserList =(UserObj)=>myAxios.post('/manage/user/update',UserObj)
+//删除用户
+export const reqDeleteUser =(userId)=>myAxios.post('/manage/user/delete',{userId})

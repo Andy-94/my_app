@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {reqUserList,reqAddUser,reqUpdateUserList} from '../../ajax'
+import {reqUserList,reqAddUser,reqUpdateUserList,reqDeleteUser} from '../../ajax'
 import dayJS from 'dayjs'
 import { Card, Button, Table, Modal,Form ,Input, Select, message } from 'antd';
 import {PlusOutlined} from '@ant-design/icons'
@@ -41,7 +41,7 @@ export default class Role extends Component {
     if(status===0){
       message.success('add user success')
       //刷新
-      this.props.getValueList()
+      this.getValueList()
       this.handModal()
     }else{
       message.error(msg)
@@ -57,12 +57,23 @@ export default class Role extends Component {
     this.setState({visible:false})
   }
 
+  deleteRole= async(item)=>{
+    let {status,msg} = await reqDeleteUser(item._id)
+    if(status===0){
+      message.success('delect')
+      this.getValueList()
+    }else{
+      message.error(msg)
+    }
+  }
+
   getRoleName =(id)=>{
     let result = this.state.roles.find((obj)=>{
       return obj._id ===id
     })
     if(result) return result.name
   }
+
   getValueList = async()=>{
     let {status,data,msg} = await reqUserList()
     if(status === 0){
@@ -113,7 +124,7 @@ export default class Role extends Component {
           return (
               <div>
                   <Button onClick={()=>{this.showModal(item)}} type="link">Modify</Button>
-                  <Button type="link" danger>Delete</Button>
+                  <Button onClick={()=>{this.deleteRole(item)}} type="link" danger>Delete</Button>
                 </div>
           )
         }
@@ -157,8 +168,8 @@ export default class Role extends Component {
                   message: 'Please input your username!',
                 },
                 {
-                  min:5,
-                  message:'please input more than five words',
+                  min:4,
+                  message:'please input more than four words',
                 },
                 {
                   max:12,
